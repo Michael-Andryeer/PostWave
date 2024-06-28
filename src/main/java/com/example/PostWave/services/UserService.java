@@ -1,6 +1,7 @@
 package com.example.PostWave.services;
 
 import com.example.PostWave.domain.User;
+import com.example.PostWave.dto.UserDTO;
 import com.example.PostWave.repository.UserRepository;
 import com.example.PostWave.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,13 @@ public class UserService {
         if(user.isEmpty())
             throw new ObjectNotFoundException("Objeto não encontrado");
         return user.orElse(null);
+    }
+
+    public User insert(User obj) {
+        return repository.insert(obj);
+    }
+
+    public User fromDTO(UserDTO objDto) {
+        return new User(objDto.getId(),objDto.getName(),objDto.getEmail());
     }
 }
