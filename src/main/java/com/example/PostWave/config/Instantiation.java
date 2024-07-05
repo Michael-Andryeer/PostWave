@@ -25,7 +25,7 @@ public class Instantiation implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 
         userRepository.deleteAll();
@@ -38,8 +38,16 @@ public class Instantiation implements CommandLineRunner {
         userRepository.saveAll(Arrays.asList(vitoria,michael,cadu));
 
         Post post1 = new Post(null,sdf.parse("28/06/2024"),"Partiu Manaus","Vou viajar para Manaus", new AuthorDTO(vitoria) );
-        Post post2 = new Post(null,sdf.parse("25/06/2024"),"Bom dia","Acordei cedo!",  new AuthorDTO(michael));
+        Post post2 = new Post(null,sdf.parse("29/06/2024"),"Cheguei em Manaus","Finalmente cheguei em Manaus", new AuthorDTO(vitoria) );
+        Post post3 = new Post(null,sdf.parse("25/06/2024"),"Bom dia","Acordei cedo!",  new AuthorDTO(michael));
+        Post post4 = new Post(null,sdf.parse("25/06/2024"),"Academia","Indo para academia!!",  new AuthorDTO(michael));
 
-       postRepository.saveAll(Arrays.asList(post1,post2));
+        postRepository.saveAll(Arrays.asList(post1,post2,post3,post4));
+
+        vitoria.getPosts().addAll(Arrays.asList(post1,post2));
+        userRepository.save(vitoria);
+
+        michael.getPosts().addAll(Arrays.asList(post3,post4));
+        userRepository.save(michael);
     }
 }
