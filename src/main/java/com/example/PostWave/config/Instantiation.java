@@ -3,6 +3,7 @@ package com.example.PostWave.config;
 import com.example.PostWave.domain.Post;
 import com.example.PostWave.domain.User;
 import com.example.PostWave.dto.AuthorDTO;
+import com.example.PostWave.dto.CommentDTO;
 import com.example.PostWave.repository.PostRepository;
 import com.example.PostWave.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,13 @@ public class Instantiation implements CommandLineRunner {
         Post post2 = new Post(null,sdf.parse("29/06/2024"),"Cheguei em Manaus","Finalmente cheguei em Manaus", new AuthorDTO(vitoria) );
         Post post3 = new Post(null,sdf.parse("25/06/2024"),"Bom dia","Acordei cedo!",  new AuthorDTO(michael));
         Post post4 = new Post(null,sdf.parse("25/06/2024"),"Academia","Indo para academia!!",  new AuthorDTO(michael));
+
+        CommentDTO c1 = new CommentDTO("Boa viagem amor",sdf.parse("28/03/2024"),new AuthorDTO(michael));
+        CommentDTO c2 = new CommentDTO("Aproveite",sdf.parse("28/03/2024"),new AuthorDTO(michael));
+        CommentDTO c3 = new CommentDTO("tenha um otimo dia",sdf.parse("25/03/2024"),new AuthorDTO(vitoria));
+
+        post1.getComments().addAll(Arrays.asList(c1,c2));
+        post3.getComments().addAll(Arrays.asList(c3));
 
         postRepository.saveAll(Arrays.asList(post1,post2,post3,post4));
 
