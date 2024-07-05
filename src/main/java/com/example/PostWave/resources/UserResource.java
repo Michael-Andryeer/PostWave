@@ -1,5 +1,6 @@
 package com.example.PostWave.resources;
 
+import com.example.PostWave.domain.Post;
 import com.example.PostWave.domain.User;
 import com.example.PostWave.dto.UserDTO;
 import com.example.PostWave.services.UserService;
@@ -33,6 +34,12 @@ public class UserResource {
         return ResponseEntity.ok().body(new UserDTO(obj));
     }
 
+    @RequestMapping(value = "/{id}/posts", method = RequestMethod.GET)
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
+    }
+
     @PostMapping
     public ResponseEntity<Void> insert(@RequestBody UserDTO objDto){
         User obj = service.fromDTO(objDto);
@@ -54,5 +61,4 @@ public class UserResource {
         obj = service.update(obj);
         return ResponseEntity.noContent().build();
     }
-
 }
